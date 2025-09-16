@@ -221,3 +221,83 @@ export function useSearch(links: LinkItem[], filters: SearchFilters) {
 4. Mobile-first responsive design
 
 This architecture provides a solid foundation for a production-ready link directory platform with excellent user experience, performance, and maintainability.
+
+## 🗄️ Database Schema
+
+### Supabase Integration
+
+The application uses Supabase as the backend database with a comprehensive schema designed for scalability and performance.
+
+#### Core Tables
+
+1. **categories** - Organize links into categories
+   - Hierarchical structure support
+   - Featured categories for homepage
+   - Custom icons and colors
+
+2. **links** - Main resource directory
+   - Full-text search capabilities
+   - Click tracking and analytics
+   - Approval workflow (pending → approved/rejected)
+   - Featured and verified badges
+   - Auto-generated domain extraction
+
+3. **user_profiles** - Extended user information
+   - Role-based access control (user/moderator/admin)
+   - Saved links functionality
+   - Profile customization
+
+4. **link_clicks** - Analytics and tracking
+   - Anonymous and authenticated click tracking
+   - IP and user agent logging
+   - Referrer tracking for analytics
+
+#### Security Features
+
+- **Row Level Security (RLS)** on all tables
+- **Role-based permissions** (user/moderator/admin)
+- **Public read access** for approved content
+- **User isolation** for personal data
+- **Admin override** capabilities
+
+#### Database Functions
+
+- `increment_click_count()` - Safe click tracking
+- `search_links()` - Full-text search with ranking
+- `get_trending_links()` - Time-based trending algorithm
+- `toggle_saved_link()` - Manage user's saved links
+- `get_user_stats()` - User analytics dashboard
+- `get_category_stats()` - Category performance metrics
+
+#### Performance Optimizations
+
+- **Composite indexes** for common query patterns
+- **GIN indexes** for full-text search and array operations
+- **Partial indexes** for filtered queries
+- **Generated columns** for computed fields
+- **Query optimization** with proper join strategies
+
+#### Migration Files
+
+All database changes are managed through SQL migration files:
+- `create_categories_table.sql` - Categories and default data
+- `create_user_profiles_table.sql` - User profiles with auth triggers
+- `create_links_table.sql` - Main links table with constraints
+- `create_link_clicks_table.sql` - Analytics tracking
+- `create_database_functions.sql` - Custom functions and procedures
+
+#### TypeScript Integration
+
+- **Generated types** from database schema
+- **Type-safe queries** with Supabase client
+- **Custom hooks** for common operations
+- **Real-time subscriptions** for live updates
+
+### Getting Started with Database
+
+1. **Connect to Supabase**: Click "Connect to Supabase" in the top right
+2. **Run migrations**: Migrations will be applied automatically
+3. **Seed data**: Default categories and sample links included
+4. **Configure RLS**: Policies are set up for secure access
+
+The database schema is production-ready with proper indexing, security, and scalability considerations built-in.
