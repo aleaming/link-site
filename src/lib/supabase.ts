@@ -1,20 +1,35 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from './types'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+// True only when both env vars are present. The app uses this to decide
+// whether to read live data from Supabase or fall back to bundled mock data,
+// so importing this module never throws just because the keys aren't set yet.
+export const hasSupabaseConfig = Boolean(supabaseUrl && supabaseAnonKey)
+
+if (!hasSupabaseConfig) {
+  console.warn(
+    '[supabase] VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are not set — ' +
+      'the app will show bundled sample links. See docs/link-update-routine.md.'
+  )
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  }
-})
+// When config is missing we still export a client-shaped value so the typed
+// `db`/`auth` helpers below compile; callers must gate real usage on
+// `hasSupabaseConfig` (e.g. fetchLinks in lib/data.ts).
+export const supabase = (
+  hasSupabaseConfig
+    ? createClient<Database>(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          autoRefreshToken: true,
+          persistSession: true,
+          detectSessionInUrl: true
+        }
+      })
+    : null
+) as SupabaseClient<Database>
 
 // Helper functions for common database operations
 export const db = {

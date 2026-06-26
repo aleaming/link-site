@@ -1,0 +1,153 @@
+# Link‑update routine
+
+A repeatable way to add or update the links shown on the site — the same kind
+of "give Claude a batch, it does the rest" flow you already use for your Reddit
+links, but the destination here is the project's **Supabase `links` table**.
+
+There are two halves:
+
+1. **The routine prompt** (below) — you run this in Claude. You paste raw links
+   or notes; Claude turns them into clean JSON and runs the writer for you.
+2. **The writer** — [`scripts/upsert-links.mjs`](../scripts/upsert-links.mjs),
+   which validates the JSON and **upserts** it into Supabase. "Upsert" means
+   re-running with the same URL **updates** that link instead of creating a
+   duplicate, so the routine is safe to run as often as you like.
+
+Once a link's `status` is `approved`, it shows up on the site.
+
+---
+
+## One‑time setup
+
+Do this once per machine/project.
+
+1. **Install dependencies** (adds the Supabase client used by the app + script):
+   ```bash
+   npm install
+   ```
+2. **Apply the database schema.** Run the five files in
+   [`supabase/migrations/`](../supabase/migrations) against your Supabase
+   project (Supabase Dashboard → SQL Editor, or the Supabase CLI). This creates
+   the `categories`, `links`, `user_profiles`, and `link_clicks` tables and
+   seeds the default categories.
+3. **Add your keys.** Copy `.env.example` to `.env` and fill in the four values
+   from Supabase → Project Settings → API:
+   ```bash
+   cp .env.example .env
+   ```
+   - `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` — let the **website** read links.
+   - `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` — let the **routine** write links.
+     The service‑role key bypasses row‑level security; keep it secret, never commit it.
+
+> The site works without any of this — it falls back to a few bundled sample
+> links — but nothing you add will persist or appear until Supabase is connected.
+
+---
+
+## The routine prompt
+
+Paste this into Claude (Desktop or Code) whenever you want to add links. Replace
+the example block at the bottom with whatever you're adding — a list of URLs,
+a messy paste, bookmarks, notes, anything.
+
+> **You are running my "add links to the site" routine.**
+>
+> For each item I give you below, produce one object for the Supabase `links`
+> table with these fields:
+> - `title` — short product/resource name
+> - `url` — full `https://` URL (required)
+> - `description` — one clear sentence
+> - `category` — pick the single best **slug** from this list:
+>   `development`, `design`, `ai-ml`, `analytics`, `marketing`,
+>   `productivity`, `security`, `database`, `api`, `mobile`
+> - `tags` — 2–5 short lowercase tags
+> - `featured` — `true` only if I say so (default `false`)
+> - `verified` — `true` if it's a well‑known/official resource
+> - `status` — `"approved"` unless I say otherwise
+>
+> Then:
+> 1. Write the full JSON array to `data/links-inbox.json`.
+> 2. Run `npm run links:add:dry` and show me the validation output.
+> 3. If it looks right, run `npm run links:add` to write to Supabase and report
+>    what was added/updated.
+>
+> Here are the links:
+>
+> ```
+> <paste your links / URLs / notes here>
+> ```
+
+That's the whole loop. Claude fills `data/links-inbox.json`, dry‑runs it,
+then upserts. You can also tweak the JSON by hand before the final run.
+
+---
+
+## Running the writer manually
+
+You don't need Claude in the loop — the script stands alone:
+
+```bash
+# 1. Put your links in data/links-inbox.json (see data/links-inbox.example.json)
+cp data/links-inbox.example.json data/links-inbox.json
+
+# 2. Validate without writing
+npm run links:add:dry
+
+# 3. Write to Supabase
+npm run links:add
+```
+
+Other ways to call it:
+
+```bash
+node scripts/upsert-links.mjs path/to/your-links.json   # custom file
+echo '[{"title":"X","url":"https://x.com"}]' | node scripts/upsert-links.mjs --stdin
+```
+
+### Input format
+
+Only `title` and `url` are required; everything else has sensible defaults.
+
+```json
+[
+  {
+    "title": "Linear",
+    "url": "https://linear.app",
+    "description": "Streamlined issue tracking for software teams",
+    "category": "productivity",
+    "tags": ["project-management", "issues"],
+    "featured": true,
+    "verified": true,
+    "status": "approved"
+  }
+]
+```
+
+| Field            | Required | Default      | Notes |
+|------------------|----------|--------------|-------|
+| `title`          | yes      | —            | |
+| `url`            | yes      | —            | must start with `http(s)://`; the unique key for upserts |
+| `description`    | no       | `null`       | |
+| `category`       | no       | uncategorized| slug **or** name; unknown values warn and leave it uncategorized |
+| `tags`           | no       | `[]`         | array, or a comma‑separated string |
+| `featured`       | no       | `false`      | |
+| `verified`       | no       | `false`      | |
+| `status`         | no       | `approved`   | `pending` \| `approved` \| `rejected` |
+| `icon_url`       | no       | `null`       | |
+| `screenshot_url` | no       | `null`       | |
+
+> `domain` is derived automatically by the database from `url` — don't set it.
+
+### Category slugs
+
+`development` · `design` · `ai-ml` · `analytics` · `marketing` ·
+`productivity` · `security` · `database` · `api` · `mobile`
+
+---
+
+## Want it to match your Reddit routine more closely?
+
+This is modeled on a generic "paste a batch → normalize → write" flow. If you
+share how your Reddit‑links routine is triggered and formatted (the exact prompt
+wording, any tags/fields it sets, where it stores results), the prompt above can
+be reworded to mirror it so both routines feel identical to run.

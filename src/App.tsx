@@ -10,103 +10,9 @@ import { SearchCommand } from './components/ui/search-command'
 import { TagChip, TagGroup } from './components/ui/tag-chip'
 import { GlowButton } from './components/ui/glow-button'
 import { Search, Zap, Sun, Moon, Plus } from 'lucide-react'
+import { fetchLinks, type AppLinkItem } from './lib/data'
 
-interface LinkItem {
-  id: string
-  title: string
-  description: string
-  url: string
-  domain: string
-  screenshot?: string
-  icon?: string
-  tags: string[]
-  clickCount: number
-  featured: boolean
-  verified: boolean
-  category: string
-}
-
-// Mock data - replace with actual API calls
-const mockLinks: LinkItem[] = [
-  {
-    id: '1',
-    title: "Vercel",
-    description: "Deploy web projects with zero configuration and global CDN",
-    url: "https://vercel.com",
-    domain: "vercel.com",
-    category: "Deployment",
-    tags: ["hosting", "deployment", "cdn", "serverless"],
-    featured: true,
-    verified: true,
-    clickCount: 15420,
-    icon: "https://vercel.com/favicon.ico"
-  },
-  {
-    id: '2',
-    title: "Supabase",
-    description: "Open source Firebase alternative with PostgreSQL database",
-    url: "https://supabase.io",
-    domain: "supabase.io",
-    category: "Database",
-    tags: ["database", "postgresql", "backend", "auth"],
-    featured: true,
-    verified: true,
-    clickCount: 12350,
-    icon: "https://supabase.com/favicon.ico"
-  },
-  {
-    id: '3',
-    title: "Tailwind CSS",
-    description: "Utility-first CSS framework for rapid UI development",
-    url: "https://tailwindcss.com",
-    domain: "tailwindcss.com",
-    category: "Styling",
-    tags: ["css", "framework", "utility", "design"],
-    featured: false,
-    verified: true,
-    clickCount: 8920,
-    icon: "https://tailwindcss.com/favicon.ico"
-  },
-  {
-    id: '4',
-    title: "Stripe",
-    description: "Complete payments platform for internet businesses",
-    url: "https://stripe.com",
-    domain: "stripe.com",
-    category: "Payments",
-    tags: ["payments", "billing", "subscriptions", "api"],
-    featured: true,
-    verified: true,
-    clickCount: 11200,
-    icon: "https://stripe.com/favicon.ico"
-  },
-  {
-    id: '5',
-    title: "OpenAI API",
-    description: "Access to GPT models and AI capabilities via API",
-    url: "https://openai.com/api",
-    domain: "openai.com",
-    category: "AI/ML",
-    tags: ["ai", "gpt", "machine-learning", "api"],
-    featured: false,
-    verified: true,
-    clickCount: 18750,
-    icon: "https://openai.com/favicon.ico"
-  },
-  {
-    id: '6',
-    title: "Figma",
-    description: "Collaborative interface design tool for teams",
-    url: "https://figma.com",
-    domain: "figma.com",
-    category: "Design",
-    tags: ["design", "ui", "collaboration", "prototyping"],
-    featured: false,
-    verified: true,
-    clickCount: 7340,
-    icon: "https://figma.com/favicon.ico"
-  }
-]
+type LinkItem = AppLinkItem
 
 function App() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -119,7 +25,7 @@ function App() {
 
   const { data: links = [] } = useQuery({
     queryKey: ['links'],
-    queryFn: () => Promise.resolve(mockLinks),
+    queryFn: fetchLinks,
     staleTime: 5 * 60 * 1000 // 5 minutes
   })
 

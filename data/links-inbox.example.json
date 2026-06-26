@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Linear",
+    "url": "https://linear.app",
+    "description": "Streamlined issue tracking and project management for software teams",
+    "category": "productivity",
+    "tags": ["project-management", "issues", "agile"],
+    "featured": true,
+    "verified": true,
+    "status": "approved",
+    "icon_url": "https://linear.app/favicon.ico"
+  },
+  {
+    "title": "Resend",
+    "url": "https://resend.com",
+    "description": "Email API for developers",
+    "category": "api",
+    "tags": ["email", "api", "transactional"],
+    "status": "approved"
+  }
+]
