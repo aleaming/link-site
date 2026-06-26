@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Working scratch file for the link-update routine (keep the .example version)
+data/links-inbox.json
