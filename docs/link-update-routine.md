@@ -19,28 +19,35 @@ Once a link's `status` is `approved`, it shows up on the site.
 
 ## One‑time setup
 
+The storage backend is the **built-in Netlify Database** (managed Postgres),
+reached through Netlify Functions. There are **no database keys to configure** —
+`getConnectionString()` from `@netlify/database` resolves the connection
+automatically (a local Postgres under `netlify dev`, the production DB once
+deployed).
+
 Do this once per machine/project.
 
-1. **Install dependencies** (adds the Supabase client used by the app + script):
+1. **Install dependencies:**
    ```bash
    npm install
    ```
-2. **Apply the database schema.** Run the five files in
-   [`supabase/migrations/`](../supabase/migrations) against your Supabase
-   project (Supabase Dashboard → SQL Editor, or the Supabase CLI). This creates
-   the `categories`, `links`, `user_profiles`, and `link_clicks` tables and
-   seeds the default categories.
-3. **Add your keys.** Copy `.env.example` to `.env` and fill in the four values
-   from Supabase → Project Settings → API:
+2. **Link the project to its Netlify site** (once per machine):
    ```bash
-   cp .env.example .env
+   netlify link        # this project is the `link-site-800` site
    ```
-   - `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` — let the **website** read links.
-   - `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` — let the **routine** write links.
-     The service‑role key bypasses row‑level security; keep it secret, never commit it.
+3. **Apply the schema to your local DB.** Start the dev environment (which boots
+   a local Postgres) and apply the baseline migration:
+   ```bash
+   netlify dev         # in one terminal — serves the app + functions on :8888
+   npm run db:apply    # in another — applies netlify/database/migrations/*
+   ```
+   The schema (`categories`, `links`, `link_clicks` + seed data) lives in
+   [`netlify/database/migrations/`](../netlify/database/migrations) and is
+   applied **automatically on deploy**.
 
-> The site works without any of this — it falls back to a few bundled sample
-> links — but nothing you add will persist or appear until Supabase is connected.
+> The site still works without any backend — it falls back to a few bundled
+> sample links — but nothing you add will persist or appear until the database
+> is connected.
 
 ---
 
@@ -52,7 +59,7 @@ a messy paste, bookmarks, notes, anything.
 
 > **You are running my "add links to the site" routine.**
 >
-> For each item I give you below, produce one object for the Supabase `links`
+> For each item I give you below, produce one object for the `links`
 > table with these fields:
 > - `title` — short product/resource name
 > - `url` — full `https://` URL (required)
@@ -68,8 +75,8 @@ a messy paste, bookmarks, notes, anything.
 > Then:
 > 1. Write the full JSON array to `data/links-inbox.json`.
 > 2. Run `npm run links:add:dry` and show me the validation output.
-> 3. If it looks right, run `npm run links:add` to write to Supabase and report
->    what was added/updated.
+> 3. If it looks right, run `npm run links:add` to write to the database and
+>    report what was added/updated.
 >
 > Here are the links:
 >
@@ -90,18 +97,19 @@ You don't need Claude in the loop — the script stands alone:
 # 1. Put your links in data/links-inbox.json (see data/links-inbox.example.json)
 cp data/links-inbox.example.json data/links-inbox.json
 
-# 2. Validate without writing
+# 2. Validate without writing (no DB connection needed)
 npm run links:add:dry
 
-# 3. Write to Supabase
+# 3. Write to the database. `links:add` runs through `netlify dev:exec` so the
+#    DB connection is wired up automatically.
 npm run links:add
 ```
 
-Other ways to call it:
+Other ways to call it (wrap in `netlify dev:exec` so the connection resolves):
 
 ```bash
-node scripts/upsert-links.mjs path/to/your-links.json   # custom file
-echo '[{"title":"X","url":"https://x.com"}]' | node scripts/upsert-links.mjs --stdin
+netlify dev:exec node scripts/upsert-links.mjs path/to/your-links.json   # custom file
+echo '[{"title":"X","url":"https://x.com"}]' | netlify dev:exec node scripts/upsert-links.mjs --stdin
 ```
 
 ### Input format

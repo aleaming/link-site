@@ -1,0 +1,27 @@
+# Netlify build & routing config.
+#
+# - Vite builds the SPA into dist/.
+# - Functions in netlify/functions/ own their routes via each file's
+#   `export const config = { path: '/api/...' }`, which take precedence over
+#   the SPA catch-all below.
+# - The catch-all rewrites everything else to index.html for client-side routing.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[dev]
+  framework = "#custom"
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+
+# SPA fallback — must come after function routes (which Netlify matches first).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

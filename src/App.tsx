@@ -10,7 +10,7 @@ import { SearchCommand } from './components/ui/search-command'
 import { TagChip, TagGroup } from './components/ui/tag-chip'
 import { GlowButton } from './components/ui/glow-button'
 import { Search, Zap, Sun, Moon, Plus } from 'lucide-react'
-import { fetchLinks, type AppLinkItem } from './lib/data'
+import { fetchLinks, trackClick, type AppLinkItem } from './lib/data'
 
 type LinkItem = AppLinkItem
 
@@ -162,7 +162,7 @@ function App() {
               onViewModeChange={setViewMode}
               onDensityChange={setDensity}
               onLinkClick={(link) => {
-                console.log('Link clicked:', link.title)
+                trackClick(link.id)
               }}
             />
           </div>
