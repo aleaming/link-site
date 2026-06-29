@@ -74,17 +74,21 @@ const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         )}
         
-        {/* Icon */}
+        {/* Icon (passed via the `icon` prop) */}
         {icon && !loading && (
           <span className={cn("flex items-center", children && "mr-2")}>
             {icon}
           </span>
         )}
-        
-        {/* Content */}
-        <span className="relative z-10">
-          {children}
-        </span>
+
+        {/* Content — inline-flex keeps any child icons (svg) on the same row as
+            the text. Tailwind Preflight makes <svg> display:block, which would
+            otherwise push the label onto a second line. */}
+        {children != null && children !== false && (
+          <span className="relative z-10 inline-flex items-center gap-2">
+            {children}
+          </span>
+        )}
       </Comp>
     )
   }
