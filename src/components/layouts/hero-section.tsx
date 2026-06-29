@@ -7,22 +7,31 @@ import {
   Users, 
   Database,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  MousePointerClick
 } from 'lucide-react'
 import { GlowButton } from '@/components/ui/glow-button'
 import { TagChip, TagGroup } from '@/components/ui/tag-chip'
 import { cn } from '@/lib/utils'
 
+interface HeroStat {
+  label: string
+  value: number
+}
+
 interface HeroSectionProps {
   onSearchOpen?: () => void
   onTagClick?: (tag: string) => void
+  stats?: HeroStat[]
   className?: string
 }
 
-const stats = [
-  { label: 'Resources', value: 1247, icon: Database },
-  { label: 'Categories', value: 24, icon: TrendingUp },
-  { label: 'Users', value: 12500, icon: Users }
+// Icons are paired to stats by position; labels/values come from real data.
+const STAT_ICONS = [Database, TrendingUp, MousePointerClick]
+const DEFAULT_STATS: HeroStat[] = [
+  { label: 'Resources', value: 0 },
+  { label: 'Categories', value: 0 },
+  { label: 'Total Clicks', value: 0 }
 ]
 
 const popularTags = [
@@ -38,11 +47,17 @@ const typewriterTexts = [
   'API Services'
 ]
 
-export function HeroSection({ onSearchOpen, onTagClick, className }: HeroSectionProps) {
+export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, className }: HeroSectionProps) {
+  // Pair real (label, value) stats with their icons by position.
+  const stats = (statsProp && statsProp.length ? statsProp : DEFAULT_STATS).map((s, i) => ({
+    ...s,
+    icon: STAT_ICONS[i % STAT_ICONS.length]
+  }))
+
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0))
+  const [animatedStats, setAnimatedStats] = useState<number[]>(stats.map(() => 0))
 
   // Typewriter effect
   useEffect(() => {
@@ -90,7 +105,7 @@ export function HeroSection({ onSearchOpen, onTagClick, className }: HeroSection
 
     const timer = setTimeout(animateStats, 500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [stats.map(s => s.value).join(',')])
 
   const formatStatValue = (value: number) => {
     if (value >= 1000) {

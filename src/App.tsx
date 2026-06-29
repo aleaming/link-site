@@ -10,7 +10,7 @@ import { SearchCommand } from './components/ui/search-command'
 import { TagChip, TagGroup } from './components/ui/tag-chip'
 import { GlowButton } from './components/ui/glow-button'
 import { Search, Zap, Sun, Moon, Plus } from 'lucide-react'
-import { fetchLinks, trackClick, type AppLinkItem } from './lib/data'
+import { fetchLinks, fetchCategories, trackClick, type AppLinkItem } from './lib/data'
 
 type LinkItem = AppLinkItem
 
@@ -29,13 +29,40 @@ function App() {
     staleTime: 5 * 60 * 1000 // 5 minutes
   })
 
-  // Filter links by selected tags
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+    staleTime: 5 * 60 * 1000
+  })
+
+  // The category name for the active sidebar slug ('all' => no category filter).
+  const activeCategoryName = React.useMemo(() => {
+    if (activeCategory === 'all') return null
+    return categories.find(c => c.slug === activeCategory)?.name ?? null
+  }, [activeCategory, categories])
+
+  // Filter links by the active category and any selected tags.
   const filteredLinks = React.useMemo(() => {
-    if (selectedTags.length === 0) return links
-    return links.filter(link => 
-      selectedTags.some(tag => link.tags.includes(tag))
-    )
-  }, [links, selectedTags])
+    return links.filter(link => {
+      const categoryOk = !activeCategoryName || link.category === activeCategoryName
+      const tagsOk = selectedTags.length === 0 || selectedTags.some(tag => link.tags.includes(tag))
+      return categoryOk && tagsOk
+    })
+  }, [links, activeCategoryName, selectedTags])
+
+  // Real stats for the hero, derived from the live data.
+  const heroStats = React.useMemo(() => ([
+    { label: 'Resources', value: links.length },
+    { label: 'Categories', value: categories.length },
+    { label: 'Total Clicks', value: links.reduce((sum, l) => sum + (l.clickCount || 0), 0) }
+  ]), [links, categories])
+
+  // Stats for the sidebar footer.
+  const sidebarStats = React.useMemo(() => ({
+    total: links.length,
+    showing: filteredLinks.length,
+    featured: links.filter(l => l.featured).length
+  }), [links, filteredLinks])
 
   // Get all unique tags
   const allTags = React.useMemo(() => {
@@ -113,6 +140,8 @@ function App() {
           onClose={() => setSidebarOpen(false)}
           activeCategory={activeCategory}
           onCategorySelect={setActiveCategory}
+          categories={categories}
+          stats={sidebarStats}
         />
 
         {/* Main Content */}
@@ -121,6 +150,7 @@ function App() {
           <HeroSection
             onSearchOpen={() => setSearchOpen(true)}
             onTagClick={(tag) => handleTagToggle(tag)}
+            stats={heroStats}
           />
 
           {/* Content */}
