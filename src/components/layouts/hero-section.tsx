@@ -164,14 +164,14 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-8"
         >
-          <h1 className="text-5xl md:text-7xl font-black mb-6">
-            <span className="block text-neutral-900 dark:text-white mb-2">
+          <h1 className="font-display font-bold tracking-tight leading-[1.05] mb-6 text-[clamp(2.75rem,7vw,5.5rem)]">
+            <span className="block text-neutral-900 dark:text-white">
               Discover Electric
             </span>
-            <span className="block bg-gradient-to-r from-cyan-500 to-lime-500 bg-clip-text text-transparent relative">
+            <span className="block relative bg-gradient-to-r from-cyan-400 via-cyan-300 to-lime-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-pan drop-shadow-[0_0_28px_rgba(11,249,255,0.25)]">
               {displayText}
               <motion.span
-                className="inline-block w-1 h-16 md:h-20 bg-cyan-500 ml-2"
+                className="inline-block w-[3px] h-[0.85em] align-middle ml-2 rounded-full bg-cyan-400"
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
               />
@@ -264,18 +264,17 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             return (
               <motion.div
                 key={stat.label}
-                className="text-center"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                className="group relative rounded-2xl border border-neutral-200/70 dark:border-white/10 bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-cyan-400/50 hover:shadow-glow-cyan"
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-lime-500/20 border border-cyan-500/30 mb-4">
-                  <Icon size={24} className="text-cyan-500" />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-lime-500/20 border border-cyan-500/30 mb-4 transition-transform duration-300 group-hover:scale-110">
+                  <Icon size={22} className="text-cyan-400" />
                 </div>
-                <div className="text-3xl font-bold text-neutral-900 dark:text-white mb-1">
+                <div className="font-display text-4xl font-bold text-neutral-900 dark:text-white mb-1 tabular-nums">
                   {formatStatValue(animatedStats[index])}
-                  <span className="text-cyan-500">+</span>
+                  <span className="text-cyan-400">+</span>
                 </div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+                <div className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
                   {stat.label}
                 </div>
               </motion.div>

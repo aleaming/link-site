@@ -118,12 +118,9 @@ function App() {
   }
 
   return (
-    <div 
-      className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-all duration-300"
-      style={{
-        color: 'var(--text-primary)',
-        fontFamily: 'var(--font-primary)'
-      }}
+    <div
+      className="min-h-screen transition-colors duration-300"
+      style={{ color: 'var(--text-primary)' }}
     >
       {/* Header */}
       <AppHeader

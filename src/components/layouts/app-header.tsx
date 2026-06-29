@@ -47,9 +47,12 @@ export function AppHeader({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Apply theme
+  // Apply theme — set both the design-system data attribute and the Tailwind
+  // `dark` class so CSS variables and `dark:` utilities stay in sync.
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    const root = document.documentElement
+    root.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    root.classList.toggle('dark', darkMode)
   }, [darkMode])
 
   const handleSearchClick = () => {

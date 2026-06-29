@@ -73,9 +73,10 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
       <motion.div
         ref={ref}
         className={cn(
-          "group relative bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden cursor-pointer transition-all duration-300",
-          "hover:border-transparent hover:shadow-[0_0_0_2px] hover:shadow-cyan-500/50 hover:scale-[1.02]",
-          "focus-within:border-transparent focus-within:shadow-[0_0_0_2px] focus-within:shadow-cyan-500/50",
+          "group relative rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-neutral-900/70 dark:backdrop-blur-sm overflow-hidden cursor-pointer",
+          "shadow-elevated transition-[transform,box-shadow,border-color] duration-300 ease-smooth",
+          "hover:border-cyan-400/60 hover:shadow-glow-cyan-lg",
+          "focus-within:border-cyan-400/60 focus-within:shadow-glow-cyan-lg",
           className
         )}
         onClick={handleCardClick}
@@ -112,7 +113,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         )}
 
         {/* Image/Screenshot */}
-        <div className="relative h-40 bg-neutral-100 dark:bg-neutral-700 overflow-hidden">
+        <div className="relative h-40 overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-950">
           {screenshot && !imageError ? (
             <>
               <img
@@ -189,11 +190,11 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         <div className="p-4 space-y-3">
           {/* Title and Domain */}
           <div>
-            <h3 className="font-bold text-lg text-neutral-900 dark:text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-500 group-hover:to-lime-500 group-hover:bg-clip-text transition-all duration-300 line-clamp-2">
+            <h3 className="font-display font-semibold text-lg tracking-tight text-neutral-900 dark:text-white transition-colors duration-300 line-clamp-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-300">
               {title}
             </h3>
             {domain && (
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              <p className="font-mono text-xs text-neutral-500 dark:text-neutral-400 mt-1.5">
                 {domain}
               </p>
             )}
