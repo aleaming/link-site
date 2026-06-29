@@ -43,13 +43,13 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 1;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 25%, transparent 75%);
-    mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 25%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 110% 80% at 50% 0%, #000 45%, transparent 92%);
+    mask-image: radial-gradient(ellipse 110% 80% at 50% 0%, #000 45%, transparent 92%);
   }
 
   ::selection {

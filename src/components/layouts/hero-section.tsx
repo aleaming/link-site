@@ -131,29 +131,6 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Floating Geometric Shapes */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-cyan-500 to-lime-500 rounded-full opacity-20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.5, 0.2]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-20 text-center">
