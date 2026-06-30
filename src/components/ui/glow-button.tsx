@@ -10,13 +10,13 @@ const glowButtonVariants = cva(
     variants: {
       variant: {
         primary: [
-          "bg-cyan-500 text-white shadow-[0_0_12px_rgba(11,249,255,0.4)]",
-          "hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(11,249,255,0.6)] hover:scale-105",
+          "bg-cyan-500 text-neutral-950 shadow-glow-cyan",
+          "hover:bg-cyan-400 hover:shadow-glow-cyan-lg hover:scale-[1.03]",
           "active:scale-95"
         ],
         secondary: [
-          "bg-lime-500 text-black shadow-[0_0_12px_rgba(211,255,26,0.4)]",
-          "hover:bg-lime-400 hover:shadow-[0_0_20px_rgba(211,255,26,0.6)] hover:scale-105",
+          "bg-lime-500 text-neutral-950 shadow-glow-lime",
+          "hover:bg-lime-400 hover:shadow-glow-lime hover:scale-[1.03]",
           "active:scale-95"
         ],
         ghost: [
@@ -25,7 +25,7 @@ const glowButtonVariants = cva(
           "active:scale-95"
         ],
         gradient: [
-          "bg-gradient-to-r from-cyan-500 to-lime-500 text-white relative",
+          "bg-gradient-to-r from-cyan-500 to-lime-500 text-neutral-950 relative",
           "before:absolute before:inset-0 before:bg-gradient-to-r before:from-cyan-400 before:to-lime-400 before:opacity-0 before:transition-opacity before:duration-200",
           "hover:before:opacity-100 hover:shadow-[0_0_24px_rgba(11,249,255,0.5)] hover:scale-105",
           "active:scale-95"
@@ -74,17 +74,21 @@ const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         )}
         
-        {/* Icon */}
+        {/* Icon (passed via the `icon` prop) */}
         {icon && !loading && (
           <span className={cn("flex items-center", children && "mr-2")}>
             {icon}
           </span>
         )}
-        
-        {/* Content */}
-        <span className="relative z-10">
-          {children}
-        </span>
+
+        {/* Content — inline-flex keeps any child icons (svg) on the same row as
+            the text. Tailwind Preflight makes <svg> display:block, which would
+            otherwise push the label onto a second line. */}
+        {children != null && children !== false && (
+          <span className="relative z-10 inline-flex items-center gap-2">
+            {children}
+          </span>
+        )}
       </Comp>
     )
   }
