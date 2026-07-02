@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-Curated link directory ("SaaSy Resources"). React 18 + TypeScript + Vite SPA,
+Curated link directory ("New AI Tools", new-ai-tools.com; formerly "SaaSy
+Resources"). React 18 + TypeScript + Vite SPA,
 Netlify Functions + Netlify DB (managed Neon Postgres), one Netlify site
 (`link-site-800`). See README.md for the full layout.
 

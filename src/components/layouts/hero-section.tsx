@@ -37,10 +37,10 @@ const popularTags = [
 ]
 
 const typewriterTexts = [
+  'AI Tools',
+  'AI Agents',
   'SaaS Tools',
-  'AI Resources', 
-  'Dev Tools',
-  'Design Assets',
+  'Dev Resources',
   'API Services'
 ]
 
@@ -158,8 +158,8 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Curated collection of the hottest SaaS tools, APIs, and resources for modern 
-            <span className="text-cyan-500 font-semibold"> entrepreneurs</span> and 
+            Curated collection of the newest AI tools, apps, and resources for modern
+            <span className="text-cyan-500 font-semibold"> entrepreneurs</span> and
             <span className="text-lime-500 font-semibold"> indie hackers</span>.
           </motion.p>
         </motion.div>

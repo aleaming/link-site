@@ -152,10 +152,10 @@ export function AppHeader({
                 </div>
                 <div className="hidden sm:block">
                   <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-500 to-lime-500 bg-clip-text text-transparent">
-                    SaaSy Resources
+                    New AI Tools
                   </h1>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 -mt-1">
-                    Electric Tools Directory
+                    Electric AI Directory
                   </p>
                 </div>
               </motion.div>

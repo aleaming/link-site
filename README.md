@@ -1,6 +1,7 @@
-# SaaSy Resources (link-site)
+# New AI Tools (link-site)
 
-A curated link directory for SaaS and developer tools. React SPA on the front,
+A curated link directory for AI, SaaS, and developer tools, live at
+https://new-ai-tools.com (formerly branded "SaaSy Resources"). React SPA on the front,
 Netlify Functions + Netlify DB (managed Neon Postgres) on the back, deployed as
 a single Netlify site (`link-site-800`).
 
