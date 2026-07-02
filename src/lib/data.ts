@@ -65,6 +65,43 @@ export const sampleLinks: AppLinkItem[] = [
 ]
 
 /**
+ * Favicon for a link, derived from its URL via Google's favicon service.
+ * Used as a render-time fallback when a link has no stored `icon_url`.
+ */
+export function faviconFor(url: string): string | undefined {
+  try {
+    return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=128`
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * Screenshot thumbnail for a link via the free WordPress mShots service.
+ * The very first request per URL returns a "generating" placeholder; mShots
+ * caches the real screenshot for subsequent loads. Fallback for links with
+ * no stored `screenshot_url`.
+ */
+export function thumbnailFor(url: string): string | undefined {
+  try {
+    new URL(url)
+  } catch {
+    return undefined
+  }
+  // mShots rejects percent-encoded URLs (403) — pass the URL raw in the path.
+  return `https://s.wordpress.com/mshots/v1/${encodeURI(url)}?w=640`
+}
+
+// Stored icon/screenshot win; otherwise derive both from the link's URL.
+function withArtwork(link: AppLinkItem): AppLinkItem {
+  return {
+    ...link,
+    icon: link.icon ?? faviconFor(link.url),
+    screenshot: link.screenshot ?? thumbnailFor(link.url)
+  }
+}
+
+/**
  * Returns approved links for display. Fetches from the `/api/links` Netlify
  * Function (which reads Neon); on any error, falls back to bundled sample data
  * so the UI still renders. Used as the React Query `queryFn` in App.tsx.
@@ -73,10 +110,11 @@ export async function fetchLinks(): Promise<AppLinkItem[]> {
   try {
     const res = await fetch('/api/links')
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return (await res.json()) as AppLinkItem[]
+    const links = (await res.json()) as AppLinkItem[]
+    return links.map(withArtwork)
   } catch (err) {
     console.error('[api] failed to load links, using sample data:', err)
-    return sampleLinks
+    return sampleLinks.map(withArtwork)
   }
 }
 

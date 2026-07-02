@@ -47,6 +47,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
   }, ref) => {
     const [imageLoaded, setImageLoaded] = React.useState(false)
     const [imageError, setImageError] = React.useState(false)
+    const [iconError, setIconError] = React.useState(false)
 
     const handleCardClick = () => {
       onClick?.(id)
@@ -194,7 +195,16 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
               {title}
             </h3>
             {domain && (
-              <p className="font-mono text-xs text-neutral-500 dark:text-neutral-400 mt-1.5">
+              <p className="flex items-center gap-1.5 font-mono text-xs text-neutral-500 dark:text-neutral-400 mt-1.5">
+                {icon && !iconError && (
+                  <img
+                    src={icon}
+                    alt=""
+                    className="w-4 h-4 rounded-sm"
+                    onError={() => setIconError(true)}
+                    loading="lazy"
+                  />
+                )}
                 {domain}
               </p>
             )}
