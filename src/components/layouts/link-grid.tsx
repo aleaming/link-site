@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FixedSizeGrid as Grid } from 'react-window'
-import { 
+import {
   Grid3X3, 
   List, 
   LayoutGrid, 
@@ -121,7 +120,7 @@ export function LinkGrid({
         return sorted.sort((a, b) => a.title.localeCompare(b.title))
       case 'newest':
       default:
-        return sorted.sort((a, b) => b.featured ? 1 : -1)
+        return sorted.sort((_a, b) => b.featured ? 1 : -1)
     }
   }, [links, sortBy])
 
@@ -173,7 +172,7 @@ export function LinkGrid({
           {/* Sort */}
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
             className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           >
             <option value="newest">Newest</option>

@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import './design-system.css';
 import { AppHeader } from './components/layouts/app-header'
 import { CategorySidebar } from './components/layouts/category-sidebar'
 import { LinkGrid } from './components/layouts/link-grid'
 import { HeroSection } from './components/layouts/hero-section'
-import { LinkCard } from './components/ui/link-card'
 import { SearchCommand } from './components/ui/search-command'
 import { TagChip, TagGroup } from './components/ui/tag-chip'
-import { GlowButton } from './components/ui/glow-button'
-import { Search, Zap, Sun, Moon, Plus } from 'lucide-react'
-import { fetchLinks, fetchCategories, trackClick, type AppLinkItem } from './lib/data'
-
-type LinkItem = AppLinkItem
+import { fetchLinks, fetchCategories, trackClick } from './lib/data'
 
 function App() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -20,7 +15,6 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'masonry'>('grid')
   const [density, setDensity] = useState<'comfortable' | 'compact'>('comfortable')
-  const [savedLinks, setSavedLinks] = useState<Set<string>>(new Set())
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const { data: links = [] } = useQuery({
@@ -64,33 +58,6 @@ function App() {
     featured: links.filter(l => l.featured).length
   }), [links, filteredLinks])
 
-  // Get all unique tags
-  const allTags = React.useMemo(() => {
-    const tagSet = new Set<string>()
-    links.forEach(link => link.tags.forEach(tag => tagSet.add(tag)))
-    return Array.from(tagSet)
-  }, [links])
-
-  const handleSave = (id: string) => {
-    setSavedLinks(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(id)) {
-        newSet.delete(id)
-      } else {
-        newSet.add(id)
-      }
-      return newSet
-    })
-  }
-
-  const handleShare = async (url: string, title: string) => {
-    try {
-      await navigator.share({ title, url })
-    } catch {
-      await navigator.clipboard.writeText(url)
-    }
-  }
-
   const handleTagToggle = (tag: string) => {
     setSelectedTags(prev => 
       prev.includes(tag) 
@@ -113,7 +80,7 @@ function App() {
     console.log('Searching for:', query)
   }
 
-  const handleSearchSelect = (result: any) => {
+  const handleSearchSelect = (result: { url: string }) => {
     window.open(result.url, '_blank', 'noopener,noreferrer')
   }
 

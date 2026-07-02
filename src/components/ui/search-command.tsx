@@ -2,8 +2,7 @@ import * as React from "react"
 import { Command } from "cmdk"
 import * as Dialog from "@radix-ui/react-dialog"
 import { Search, Hash, Clock, Zap, Loader2 } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
 
 export interface SearchResult {
   id: string
