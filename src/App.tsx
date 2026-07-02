@@ -58,6 +58,10 @@ function App() {
     featured: links.filter(l => l.featured).length
   }), [links, filteredLinks])
 
+  // Browsing mode: a specific category or tag filter is active, so the hero
+  // slims down (no CTA row / stat cards) to get the links on screen sooner.
+  const isFiltering = activeCategory !== 'all' || selectedTags.length > 0
+
   const handleTagToggle = (tag: string) => {
     setSelectedTags(prev => 
       prev.includes(tag) 
@@ -115,6 +119,7 @@ function App() {
             onSearchOpen={() => setSearchOpen(true)}
             onTagClick={(tag) => handleTagToggle(tag)}
             stats={heroStats}
+            compact={isFiltering}
           />
 
           {/* Content */}

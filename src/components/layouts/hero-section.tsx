@@ -20,6 +20,9 @@ interface HeroSectionProps {
   onSearchOpen?: () => void
   onTagClick?: (tag: string) => void
   stats?: HeroStat[]
+  /** Slim browsing mode: hides the CTA row, stat cards, and scroll hint
+      while a category or tag filter is active. */
+  compact?: boolean
   className?: string
 }
 
@@ -44,7 +47,7 @@ const typewriterTexts = [
   'API Services'
 ]
 
-export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, className }: HeroSectionProps) {
+export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compact = false, className }: HeroSectionProps) {
   // Pair real (label, value) stats with their icons by position.
   const stats = (statsProp && statsProp.length ? statsProp : DEFAULT_STATS).map((s, i) => ({
     ...s,
@@ -130,7 +133,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
 
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-20 text-center">
+      <div className={cn('max-w-6xl mx-auto px-4 text-center', compact ? 'py-12' : 'py-20')}>
         {/* Main Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -164,12 +167,20 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
           </motion.p>
         </motion.div>
 
-        {/* Search CTA */}
+        {/* Search CTA — collapsed via CSS grid-rows while a category/tag
+            filter is active (framer keeps owning only the entrance motion) */}
+        <div
+          aria-hidden={compact}
+          className={cn(
+            'grid transition-all duration-300 ease-smooth',
+            compact ? 'grid-rows-[0fr] opacity-0 pointer-events-none' : 'grid-rows-[1fr] opacity-100 mb-12'
+          )}
+        >
+        <div className={cn('min-h-0', compact ? 'overflow-hidden' : 'overflow-visible')}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
             <GlowButton
@@ -196,6 +207,8 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             Press <kbd className="px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded text-xs">⌘K</kbd> to search
           </p>
         </motion.div>
+        </div>
+        </div>
 
         {/* Popular Tags */}
         <motion.div
@@ -226,7 +239,15 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
           </TagGroup>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats — collapsed via CSS grid-rows while a category/tag filter is active */}
+        <div
+          aria-hidden={compact}
+          className={cn(
+            'grid transition-all duration-300 ease-smooth',
+            compact ? 'grid-rows-[0fr] opacity-0 pointer-events-none' : 'grid-rows-[1fr] opacity-100'
+          )}
+        >
+        <div className={cn('min-h-0', compact ? 'overflow-hidden' : 'overflow-visible')}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -238,7 +259,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             return (
               <motion.div
                 key={stat.label}
-                className="group relative rounded-2xl border border-neutral-200/70 dark:border-white/10 bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-cyan-400/50 hover:shadow-glow-cyan"
+                className="group relative rounded-2xl border border-neutral-200/70 dark:border-white/10 bg-cream/70 dark:bg-white/[0.03] backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-cyan-400/50 hover:shadow-glow-cyan"
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-lime-500/20 border border-cyan-500/30 mb-4 transition-transform duration-300 group-hover:scale-110">
@@ -255,8 +276,14 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             )
           })}
         </motion.div>
+        </div>
+        </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator — hidden while browsing a category/tag filter */}
+        <div
+          aria-hidden={compact}
+          className={cn('transition-opacity duration-300', compact && 'opacity-0 pointer-events-none')}
+        >
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0, y: 10 }}
@@ -275,6 +302,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, classN
             />
           </motion.div>
         </motion.div>
+        </div>
       </div>
     </section>
   )
