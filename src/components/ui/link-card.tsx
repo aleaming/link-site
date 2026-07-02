@@ -74,7 +74,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
       <motion.div
         ref={ref}
         className={cn(
-          "group relative rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-neutral-900/70 dark:backdrop-blur-sm overflow-hidden cursor-pointer",
+          "group relative rounded-2xl border border-neutral-200 dark:border-white/10 bg-cream dark:bg-neutral-900/70 dark:backdrop-blur-sm overflow-hidden cursor-pointer",
           "shadow-elevated transition-[transform,box-shadow,border-color] duration-300 ease-smooth",
           "hover:border-cyan-400/60 hover:shadow-glow-cyan-lg",
           "focus-within:border-cyan-400/60 focus-within:shadow-glow-cyan-lg",
@@ -91,7 +91,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         {/* Gradient border effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-lime-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" 
              style={{ padding: '2px', borderRadius: '12px' }}>
-          <div className="w-full h-full bg-white dark:bg-neutral-800 rounded-[10px]" />
+          <div className="w-full h-full bg-cream dark:bg-neutral-800 rounded-[10px]" />
         </div>
 
         {/* Featured badge */}
@@ -169,7 +169,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
               </DropdownMenu.Trigger>
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
-                  className="min-w-[160px] bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg p-1 z-50"
+                  className="min-w-[160px] bg-cream dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg p-1 z-50"
                   sideOffset={5}
                 >
                   <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer">

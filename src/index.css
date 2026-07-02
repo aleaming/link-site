@@ -13,7 +13,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: #f3ecd9; /* warm cream — keep in sync with --bg-primary */
+    background-color: #d4c5a0; /* natural sand — keep in sync with --bg-primary */
     color: #262626;
   }
   html.dark body {

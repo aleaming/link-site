@@ -219,10 +219,10 @@
   --breakpoint-2xl: 1536px;
 
   /* ===== LIGHT MODE (DEFAULT) ===== */
-  --bg-primary: #f3ecd9; /* warm cream page background (body rule in index.css matches) */
-  --bg-secondary: #ffffff;
+  --bg-primary: #d4c5a0; /* natural sand page background (body rule in index.css matches) */
+  --bg-secondary: #fbf8f0; /* cream surfaces/cards (tailwind `cream`) */
   --bg-tertiary: var(--neutral-50);
-  --bg-elevated: #ffffff;
+  --bg-elevated: #fbf8f0;
   
   --text-primary: var(--neutral-900);
   --text-secondary: var(--neutral-700);

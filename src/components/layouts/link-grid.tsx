@@ -44,7 +44,7 @@ const LoadingSkeleton = ({ count = 12 }: { count?: number }) => (
     {Array.from({ length: count }).map((_, index) => (
       <motion.div
         key={index}
-        className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden"
+        className="bg-cream dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
@@ -173,7 +173,7 @@ export function LinkGrid({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-cream dark:bg-neutral-800 text-neutral-900 dark:text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           >
             <option value="newest">Newest</option>
             <option value="popular">Most Popular</option>
@@ -181,7 +181,7 @@ export function LinkGrid({
           </select>
 
           {/* View Mode */}
-          <div className="flex items-center border border-neutral-200 dark:border-neutral-700 rounded-lg p-1 bg-white dark:bg-neutral-800">
+          <div className="flex items-center border border-neutral-200 dark:border-neutral-700 rounded-lg p-1 bg-cream dark:bg-neutral-800">
             <button
               onClick={() => onViewModeChange?.('grid')}
               className={cn(
@@ -220,7 +220,7 @@ export function LinkGrid({
           {/* Density */}
           <button
             onClick={() => onDensityChange?.(density === 'comfortable' ? 'compact' : 'comfortable')}
-            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-cyan-500 hover:border-cyan-500 transition-all"
+            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-cream dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-cyan-500 hover:border-cyan-500 transition-all"
           >
             {density === 'comfortable' ? 'Compact' : 'Comfortable'}
           </button>

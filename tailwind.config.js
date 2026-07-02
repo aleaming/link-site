@@ -28,6 +28,10 @@ export default {
           400: '#a8a694', 500: '#8b8977', 600: '#6f6d5c', 700: '#57554a',
           800: '#3d3b33', 900: '#262626', 950: '#1a1a1a',
         },
+        // Natural light theme: sand page canvas, cream surfaces/cards
+        // (design-system.css --bg-primary / --bg-elevated)
+        sand: '#d4c5a0',
+        cream: '#fbf8f0',
       },
       boxShadow: {
         'glow-cyan-sm': '0 0 4px rgb(11 249 255 / 0.3)',

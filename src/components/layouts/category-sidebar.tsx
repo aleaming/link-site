@@ -103,7 +103,7 @@ export function CategorySidebar({
   }
 
   const sidebarContent = (
-    <div className="h-full flex flex-col bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800">
+    <div className="h-full flex flex-col bg-cream dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
         <div>

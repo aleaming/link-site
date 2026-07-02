@@ -78,7 +78,7 @@ export function AppHeader({
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled 
-            ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-700/50 shadow-lg" 
+            ? "bg-cream/80 dark:bg-neutral-900/80 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-700/50 shadow-lg"
             : "bg-transparent",
           className
         )}
@@ -173,7 +173,7 @@ export function AppHeader({
                 >
                   <button
                     onClick={handleSearchClick}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group bg-white/10 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(11,249,255,0.3)] backdrop-blur-sm"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group bg-cream/60 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(11,249,255,0.3)] backdrop-blur-sm"
                   >
                     <Search size={16} className="text-neutral-400 group-hover:text-cyan-500 transition-colors" />
                     <span className="flex-1 text-left text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">
@@ -198,7 +198,7 @@ export function AppHeader({
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="flex items-center gap-2 p-3 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-xl">
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-cream dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-xl">
                     <Search size={16} className="text-neutral-400" />
                     <input
                       type="text"
