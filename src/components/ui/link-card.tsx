@@ -129,7 +129,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
                 loading="lazy"
               />
               {!imageLoaded && (
-                <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-600 animate-pulse" />
+                <div className="absolute inset-0 bg-line-secondary animate-pulse" />
               )}
             </>
           ) : (
