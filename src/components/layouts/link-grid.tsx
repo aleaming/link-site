@@ -44,18 +44,18 @@ const LoadingSkeleton = ({ count = 12 }: { count?: number }) => (
     {Array.from({ length: count }).map((_, index) => (
       <motion.div
         key={index}
-        className="bg-cream dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden"
+        className="bg-surface rounded-xl border border-line overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
       >
-        <div className="h-40 bg-neutral-200 dark:bg-neutral-700 animate-pulse" />
+        <div className="h-40 bg-line-secondary animate-pulse" />
         <div className="p-4 space-y-3">
-          <div className="h-5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse" />
-          <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-3/4 animate-pulse" />
+          <div className="h-5 bg-line-secondary rounded animate-pulse" />
+          <div className="h-4 bg-line-secondary rounded w-3/4 animate-pulse" />
           <div className="flex gap-2">
-            <div className="h-6 w-16 bg-neutral-200 dark:bg-neutral-700 rounded-full animate-pulse" />
-            <div className="h-6 w-20 bg-neutral-200 dark:bg-neutral-700 rounded-full animate-pulse" />
+            <div className="h-6 w-16 bg-line-secondary rounded-full animate-pulse" />
+            <div className="h-6 w-20 bg-line-secondary rounded-full animate-pulse" />
           </div>
         </div>
       </motion.div>
@@ -72,8 +72,8 @@ const EmptyState = () => (
   >
     <div className="max-w-md mx-auto">
       <motion.div
-        className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500/20 to-lime-500/20 flex items-center justify-center"
-        animate={{ 
+        className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-accent/20 to-accent-secondary/20 flex items-center justify-center"
+        animate={{
           boxShadow: [
             "0 0 20px rgba(11, 249, 255, 0.3)",
             "0 0 40px rgba(11, 249, 255, 0.5)",
@@ -82,12 +82,12 @@ const EmptyState = () => (
         }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <Search size={32} className="text-cyan-500" />
+        <Search size={32} className="text-accent" />
       </motion.div>
-      <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+      <h3 className="text-2xl font-bold text-fg mb-4">
         No resources found
       </h3>
-      <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+      <p className="text-fg-secondary mb-6">
         Try adjusting your search criteria or browse different categories to discover amazing tools.
       </p>
       <GlowButton variant="primary">
@@ -158,11 +158,11 @@ export function LinkGrid({
       {/* Controls */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <span className="text-sm font-medium text-fg-secondary">
             {links.length.toLocaleString()} resources
           </span>
           {featuredLinks.length > 0 && (
-            <TagChip size="sm" className="bg-lime-500/20 text-lime-600 dark:text-lime-400">
+            <TagChip size="sm" className="bg-accent-secondary/20 text-accent-secondary">
               {featuredLinks.length} featured
             </TagChip>
           )}
@@ -173,7 +173,7 @@ export function LinkGrid({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-cream dark:bg-neutral-800 text-neutral-900 dark:text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+            className="px-3 py-1.5 text-sm rounded-lg border border-line bg-surface text-fg focus:border-accent focus:ring-1 focus:ring-accent"
           >
             <option value="newest">Newest</option>
             <option value="popular">Most Popular</option>
@@ -181,14 +181,14 @@ export function LinkGrid({
           </select>
 
           {/* View Mode */}
-          <div className="flex items-center border border-neutral-200 dark:border-neutral-700 rounded-lg p-1 bg-cream dark:bg-neutral-800">
+          <div className="flex items-center border border-line rounded-lg p-1 bg-surface">
             <button
               onClick={() => onViewModeChange?.('grid')}
               className={cn(
                 "p-1.5 rounded-md transition-all",
-                viewMode === 'grid' 
-                  ? "bg-cyan-500 text-white shadow-lg" 
-                  : "text-neutral-600 dark:text-neutral-400 hover:text-cyan-500"
+                viewMode === 'grid'
+                  ? "bg-accent text-white shadow-lg"
+                  : "text-fg-secondary hover:text-accent"
               )}
             >
               <Grid3X3 size={16} />
@@ -197,9 +197,9 @@ export function LinkGrid({
               onClick={() => onViewModeChange?.('list')}
               className={cn(
                 "p-1.5 rounded-md transition-all",
-                viewMode === 'list' 
-                  ? "bg-cyan-500 text-white shadow-lg" 
-                  : "text-neutral-600 dark:text-neutral-400 hover:text-cyan-500"
+                viewMode === 'list'
+                  ? "bg-accent text-white shadow-lg"
+                  : "text-fg-secondary hover:text-accent"
               )}
             >
               <List size={16} />
@@ -208,9 +208,9 @@ export function LinkGrid({
               onClick={() => onViewModeChange?.('masonry')}
               className={cn(
                 "p-1.5 rounded-md transition-all",
-                viewMode === 'masonry' 
-                  ? "bg-cyan-500 text-white shadow-lg" 
-                  : "text-neutral-600 dark:text-neutral-400 hover:text-cyan-500"
+                viewMode === 'masonry'
+                  ? "bg-accent text-white shadow-lg"
+                  : "text-fg-secondary hover:text-accent"
               )}
             >
               <LayoutGrid size={16} />
@@ -220,7 +220,7 @@ export function LinkGrid({
           {/* Density */}
           <button
             onClick={() => onDensityChange?.(density === 'comfortable' ? 'compact' : 'comfortable')}
-            className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-cream dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-cyan-500 hover:border-cyan-500 transition-all"
+            className="px-3 py-1.5 text-sm rounded-lg border border-line bg-surface text-fg-secondary hover:text-accent hover:border-accent transition-all"
           >
             {density === 'comfortable' ? 'Compact' : 'Comfortable'}
           </button>
@@ -236,7 +236,7 @@ export function LinkGrid({
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-lime-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-accent to-accent-secondary flex items-center justify-center">
                 <motion.div
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -244,11 +244,11 @@ export function LinkGrid({
                   <SortAsc size={16} className="text-white" />
                 </motion.div>
               </div>
-              <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+              <h2 className="text-xl font-bold text-fg">
                 Featured Resources
               </h2>
             </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/50 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>
 
           <div className={cn(
@@ -299,10 +299,10 @@ export function LinkGrid({
         >
           {featuredLinks.length > 0 && (
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+              <h2 className="text-xl font-bold text-fg">
                 All Resources
               </h2>
-              <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-700" />
+              <div className="h-px flex-1 bg-line-secondary" />
             </div>
           )}
 
