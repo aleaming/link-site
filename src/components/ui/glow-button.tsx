@@ -5,29 +5,29 @@ import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const glowButtonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-hover disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
   {
     variants: {
       variant: {
         primary: [
-          "bg-cyan-500 text-neutral-950 shadow-glow-cyan",
-          "hover:bg-cyan-400 hover:shadow-glow-cyan-lg hover:scale-[1.03]",
+          "bg-accent text-neutral-950 shadow-glow-cyan",
+          "hover:bg-accent-hover hover:shadow-glow-cyan-lg hover:scale-[1.03]",
           "active:scale-95"
         ],
         secondary: [
-          "bg-lime-500 text-neutral-950 shadow-glow-lime",
-          "hover:bg-lime-400 hover:shadow-glow-lime hover:scale-[1.03]",
+          "bg-accent-secondary text-neutral-950 shadow-glow-lime",
+          "hover:bg-accent-hover hover:shadow-glow-lime hover:scale-[1.03]",
           "active:scale-95"
         ],
         ghost: [
-          "bg-transparent text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700",
-          "hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:shadow-[0_0_8px_rgba(11,249,255,0.3)] hover:border-cyan-400",
+          "bg-transparent text-fg-secondary border border-line",
+          "hover:bg-elevated hover:shadow-glow-accent-xs hover:border-accent-hover",
           "active:scale-95"
         ],
         gradient: [
-          "bg-gradient-to-r from-cyan-500 to-lime-500 text-neutral-950 relative",
-          "before:absolute before:inset-0 before:bg-gradient-to-r before:from-cyan-400 before:to-lime-400 before:opacity-0 before:transition-opacity before:duration-200",
-          "hover:before:opacity-100 hover:shadow-[0_0_24px_rgba(11,249,255,0.5)] hover:scale-105",
+          "bg-gradient-to-r from-accent to-accent-secondary text-neutral-950 relative",
+          "before:absolute before:inset-0 before:bg-gradient-to-r before:from-accent-hover before:to-accent-secondary before:opacity-0 before:transition-opacity before:duration-200",
+          "hover:before:opacity-100 hover:shadow-glow-accent-lg hover:scale-105",
           "active:scale-95"
         ]
       },
