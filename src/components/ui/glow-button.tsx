@@ -16,7 +16,7 @@ const glowButtonVariants = cva(
         ],
         secondary: [
           "bg-accent-secondary text-neutral-950 shadow-glow-lime",
-          "hover:bg-accent-hover hover:shadow-glow-lime hover:scale-[1.03]",
+          "hover:bg-[color-mix(in_srgb,var(--accent-secondary)_85%,black)] hover:shadow-glow-lime hover:scale-[1.03]",
           "active:scale-95"
         ],
         ghost: [
