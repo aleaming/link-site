@@ -10,6 +10,27 @@
     />
     <meta name="theme-color" content="#1a1a1a" />
 
+    <!-- Pre-paint theme bootstrap: design-system.css keys dark tokens off
+         [data-theme="dark"] / prefers-color-scheme, not the static `dark`
+         class above — without this, body's CSS-variable-driven background
+         would flash light-sand (on an OS-light machine) before React's
+         useEffect applies the persisted mode. Palette itself still resolves
+         post-hydration (documented, unchanged non-goal); this only fixes the
+         light/dark axis, which the old hardcoded `html.dark body` rule used
+         to cover for free. -->
+    <script>
+      (function () {
+        try {
+          var stored = JSON.parse(localStorage.getItem('theme-state') || 'null');
+          var mode = stored && (stored.mode === 'light' || stored.mode === 'dark') ? stored.mode : 'dark';
+          document.documentElement.setAttribute('data-theme', mode);
+          document.documentElement.classList.toggle('dark', mode === 'dark');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
     <!-- Canonical host — the site also answers on link-site-800.netlify.app -->
     <link rel="canonical" href="https://new-ai-tools.com/" />
     <meta property="og:url" content="https://new-ai-tools.com/" />
