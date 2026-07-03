@@ -142,13 +142,13 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           className="mb-8"
         >
           <h1 className="font-display font-bold tracking-tight leading-[1.05] mb-6 text-[clamp(2.75rem,7vw,5.5rem)]">
-            <span className="block text-neutral-900 dark:text-white">
+            <span className="block text-fg">
               Discover Electric
             </span>
-            <span className="block relative bg-gradient-to-r from-cyan-400 via-cyan-300 to-lime-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-pan drop-shadow-[0_0_28px_rgba(11,249,255,0.25)]">
+            <span className="block relative bg-gradient-to-r from-accent via-accent-hover to-accent-secondary bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-pan drop-shadow-[0_0_28px_rgb(from_var(--accent-primary)_r_g_b_/_0.25)]">
               {displayText}
               <motion.span
-                className="inline-block w-[3px] h-[0.85em] align-middle ml-2 rounded-full bg-cyan-400"
+                className="inline-block w-[3px] h-[0.85em] align-middle ml-2 rounded-full bg-accent-hover"
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
               />
@@ -156,14 +156,14 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           </h1>
           
           <motion.p
-            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-fg-secondary max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Curated collection of the newest AI tools, apps, and resources for modern
-            <span className="text-cyan-500 font-semibold"> entrepreneurs</span> and
-            <span className="text-lime-500 font-semibold"> indie hackers</span>.
+            <span className="text-accent font-semibold"> entrepreneurs</span> and
+            <span className="text-accent-secondary font-semibold"> indie hackers</span>.
           </motion.p>
         </motion.div>
 
@@ -203,8 +203,8 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
             </GlowButton>
           </div>
 
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
-            Press <kbd className="px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded text-xs">⌘K</kbd> to search
+          <p className="text-sm text-fg-tertiary mt-4">
+            Press <kbd className="px-2 py-1 bg-elevated rounded text-xs">⌘K</kbd> to search
           </p>
         </motion.div>
         </div>
@@ -217,7 +217,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mb-16"
         >
-          <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-300 mb-4">
+          <h3 className="text-lg font-semibold text-fg-secondary mb-4">
             Popular Categories
           </h3>
           <TagGroup className="justify-center">
@@ -259,17 +259,17 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
             return (
               <motion.div
                 key={stat.label}
-                className="group relative rounded-2xl border border-neutral-200/70 dark:border-white/10 bg-cream/70 dark:bg-white/[0.03] backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-cyan-400/50 hover:shadow-glow-cyan"
+                className="group relative rounded-2xl border border-line/70 bg-surface/70 backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-accent-hover/50 hover:shadow-glow-cyan"
                 whileTap={{ scale: 0.98 }}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-lime-500/20 border border-cyan-500/30 mb-4 transition-transform duration-300 group-hover:scale-110">
-                  <Icon size={22} className="text-cyan-400" />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/20 to-accent-secondary/20 border border-accent/30 mb-4 transition-transform duration-300 group-hover:scale-110">
+                  <Icon size={22} className="text-accent-hover" />
                 </div>
-                <div className="font-display text-4xl font-bold text-neutral-900 dark:text-white mb-1 tabular-nums">
+                <div className="font-display text-4xl font-bold text-fg mb-1 tabular-nums">
                   {formatStatValue(animatedStats[index])}
-                  <span className="text-cyan-400">+</span>
+                  <span className="text-accent-hover">+</span>
                 </div>
-                <div className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
+                <div className="text-sm text-fg-tertiary font-medium">
                   {stat.label}
                 </div>
               </motion.div>
@@ -293,12 +293,12 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 border-2 border-neutral-300 dark:border-neutral-600 rounded-full flex justify-center"
+            className="w-6 h-10 border-2 border-line-secondary rounded-full flex justify-center"
           >
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1 h-3 bg-gradient-to-b from-cyan-500 to-lime-500 rounded-full mt-2"
+              className="w-1 h-3 bg-gradient-to-b from-accent to-accent-secondary rounded-full mt-2"
             />
           </motion.div>
         </motion.div>
