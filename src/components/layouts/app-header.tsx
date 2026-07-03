@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search,
-  Zap,
   Sun,
   Moon,
   Menu,
@@ -11,6 +10,7 @@ import {
 } from 'lucide-react'
 import { GlowButton } from '@/components/ui/glow-button'
 import { ThemeSwitcher } from '@/components/ui/theme-switcher'
+import { LogoMark } from '@/components/ui/logo-mark'
 import { cn } from '@/lib/utils'
 import { applyTheme, getStoredTheme, persistTheme } from '@/lib/themes'
 
@@ -134,24 +134,21 @@ export function AppHeader({
               >
                 <div className="relative">
                   <motion.div
-                    animate={{ 
+                    animate={{
                       boxShadow: [
                         "0 0 20px rgba(11, 249, 255, 0.5)",
                         "0 0 30px rgba(11, 249, 255, 0.8)",
                         "0 0 20px rgba(11, 249, 255, 0.5)"
                       ]
                     }}
-                    transition={{ 
-                      duration: 2, 
-                      repeat: Infinity, 
-                      ease: "easeInOut" 
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
                     }}
-                    className="rounded-full"
+                    className="rounded-xl"
                   >
-                    <Zap 
-                      size={32} 
-                      className="text-accent drop-shadow-lg"
-                    />
+                    <LogoMark size={36} />
                   </motion.div>
                 </div>
                 <div className="hidden sm:block">
