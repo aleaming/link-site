@@ -153,9 +153,74 @@ Only `title` and `url` are required; everything else has sensible defaults.
 
 ---
 
-## Want it to match your Reddit routine more closely?
+## Pulling from Notion hubs instead of pasting manually
 
-This is modeled on a generic "paste a batch → normalize → write" flow. If you
-share how your Reddit‑links routine is triggered and formatted (the exact prompt
-wording, any tags/fields it sets, where it stores results), the prompt above can
-be reworded to mirror it so both routines feel identical to run.
+If you keep saving tools to Notion (the "Reddit Links" and "Claude Skills
+and Agents" databases), there's a second routine that pulls from there
+directly instead of you pasting links by hand. Full design:
+`docs/superpowers/specs/2026-07-03-notion-link-ingestion-design.md`.
+
+### One-time setup
+
+1. Create a Notion internal integration at notion.so/my-integrations,
+   share both source databases with it, and add its token to `.env` as
+   `NOTION_API_TOKEN`. (Full steps: see Task 1 of
+   `docs/superpowers/plans/2026-07-03-notion-link-ingestion.md`.)
+2. The "Directory Submissions" review database should already exist
+   (created once, alongside the source hubs) with
+   `NOTION_SUBMISSIONS_DATA_SOURCE_ID` set in `.env`.
+
+### The routine
+
+1. **Pull raw data:**
+   ```bash
+   npm run notion:pull
+   ```
+   Writes `data/notion-raw/reddit-links.json` and
+   `data/notion-raw/claude-skills-and-agents.json`.
+
+2. **Curate (paste this into Claude):**
+
+   > **You are running my "curate Notion links" routine.**
+   >
+   > Read `data/notion-raw/reddit-links.json` and
+   > `data/notion-raw/claude-skills-and-agents.json`. For each row:
+   >
+   > **Drop** it if: there's no URL; it's a raw model-weight listing (e.g.
+   > a bare Hugging Face model card); it's a pure how-to/docs page or a
+   > news/blog article *about* a tool rather than the tool's own site;
+   > `Type` is `Process` or `Reference`; `Category` includes `Tip`,
+   > `Workflow`, `Prompt`, or `IN PROGRESS`.
+   >
+   > **Merge** rows that describe the same underlying product (e.g. a
+   > product's own site + a blog post about it + its GitHub repo saved
+   > separately) into one entry. Prefer the product's own domain > GitHub
+   > repo > article about it as the canonical URL. Combine the best
+   > description.
+   >
+   > **Categorize** into one of: `development`, `design`, `ai-ml`,
+   > `analytics`, `marketing`, `productivity`, `security`, `database`,
+   > `api`, `mobile`. Use `Type`/`Category` as hints, not a fixed lookup —
+   > read the title + AI summary to decide. Leave genuinely ambiguous
+   > items uncategorized rather than guessing.
+   >
+   > **Tag** each surviving item with 2-5 short lowercase tags.
+   >
+   > For each surviving item, create a page in the "Directory Submissions"
+   > Notion database with: Title, URL, Description, Category, Tags,
+   > Source Hub (which raw file it came from), and `Decision: Pending
+   > Review`.
+   >
+   > Report final counts: rows read per hub, dropped (no URL), dropped
+   > (non-tool content), merged (dedup), pages created.
+
+3. **Review in Notion:** open the "Directory Submissions" database, scan
+   the table, fix anything inline (category, description, tags), flip
+   `Decision` to `Approved` or `Rejected` per row.
+
+4. **Sync approved rows and write:**
+   ```bash
+   npm run notion:sync
+   npm run links:add:dry
+   npm run links:add
+   ```
