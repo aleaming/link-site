@@ -8,9 +8,9 @@ const tagChipVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:shadow-[0_0_8px_rgba(11,249,255,0.3)]",
-        active: "bg-gradient-to-r from-cyan-500 to-lime-500 text-white shadow-[0_0_12px_rgba(11,249,255,0.4)]",
-        removable: "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400"
+        default: "bg-elevated text-fg-secondary hover:bg-line-secondary hover:shadow-glow-accent-xs",
+        active: "bg-gradient-to-r from-accent to-accent-secondary text-white shadow-glow-accent-sm",
+        removable: "bg-elevated text-fg-secondary hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400"
       },
       size: {
         sm: "px-2 py-1 text-xs h-6",

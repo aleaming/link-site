@@ -74,10 +74,10 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
       <motion.div
         ref={ref}
         className={cn(
-          "group relative rounded-2xl border border-neutral-200 dark:border-white/10 bg-cream dark:bg-neutral-900/70 dark:backdrop-blur-sm overflow-hidden cursor-pointer",
+          "group relative rounded-2xl border border-line bg-surface dark:backdrop-blur-sm overflow-hidden cursor-pointer",
           "shadow-elevated transition-[transform,box-shadow,border-color] duration-300 ease-smooth",
-          "hover:border-cyan-400/60 hover:shadow-glow-cyan-lg",
-          "focus-within:border-cyan-400/60 focus-within:shadow-glow-cyan-lg",
+          "hover:border-accent-hover/60 hover:shadow-glow-cyan-lg",
+          "focus-within:border-accent-hover/60 focus-within:shadow-glow-cyan-lg",
           className
         )}
         onClick={handleCardClick}
@@ -89,15 +89,15 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         {...props}
       >
         {/* Gradient border effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-lime-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" 
+        <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
              style={{ padding: '2px', borderRadius: '12px' }}>
-          <div className="w-full h-full bg-cream dark:bg-neutral-800 rounded-[10px]" />
+          <div className="w-full h-full bg-surface rounded-[10px]" />
         </div>
 
         {/* Featured badge */}
         {featured && (
           <div className="absolute top-3 right-3 z-10">
-            <div className="flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-cyan-500 to-lime-500 text-white text-xs font-semibold rounded-full shadow-lg">
+            <div className="flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-accent to-accent-secondary text-white text-xs font-semibold rounded-full shadow-lg">
               <Zap size={10} />
               Featured
             </div>
@@ -114,7 +114,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         )}
 
         {/* Image/Screenshot */}
-        <div className="relative h-40 overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-950">
+        <div className="relative h-40 overflow-hidden bg-gradient-to-br from-line-secondary to-line">
           {screenshot && !imageError ? (
             <>
               <img
@@ -129,7 +129,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
                 loading="lazy"
               />
               {!imageLoaded && (
-                <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-600 animate-pulse" />
+                <div className="absolute inset-0 bg-line-secondary animate-pulse" />
               )}
             </>
           ) : (
@@ -137,7 +137,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
               {icon ? (
                 <img src={icon} alt={title} className="w-12 h-12 object-contain" />
               ) : (
-                <ExternalLink size={24} className="text-neutral-400 dark:text-neutral-500" />
+                <ExternalLink size={24} className="text-fg-tertiary" />
               )}
             </div>
           )}
@@ -169,16 +169,16 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
               </DropdownMenu.Trigger>
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
-                  className="min-w-[160px] bg-cream dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg p-1 z-50"
+                  className="min-w-[160px] bg-surface rounded-lg border border-line shadow-lg p-1 z-50"
                   sideOffset={5}
                 >
-                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer">
+                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-elevated cursor-pointer">
                     Copy Link
                   </DropdownMenu.Item>
-                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer">
+                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-elevated cursor-pointer">
                     Share on Twitter
                   </DropdownMenu.Item>
-                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer">
+                  <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-elevated cursor-pointer">
                     Share on LinkedIn
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
@@ -191,11 +191,11 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
         <div className="p-4 space-y-3">
           {/* Title and Domain */}
           <div>
-            <h3 className="font-display font-semibold text-lg tracking-tight text-neutral-900 dark:text-white transition-colors duration-300 line-clamp-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-300">
+            <h3 className="font-display font-semibold text-lg tracking-tight text-fg transition-colors duration-300 line-clamp-2 group-hover:text-accent-hover">
               {title}
             </h3>
             {domain && (
-              <p className="flex items-center gap-1.5 font-mono text-xs text-neutral-500 dark:text-neutral-400 mt-1.5">
+              <p className="flex items-center gap-1.5 font-mono text-xs text-fg-tertiary mt-1.5">
                 {icon && !iconError && (
                   <img
                     src={icon}
@@ -211,7 +211,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
           </div>
 
           {/* Description */}
-          <p className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-fg-secondary line-clamp-2 leading-relaxed">
             {description}
           </p>
 
@@ -227,8 +227,8 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
           )}
 
           {/* Footer */}
-          <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-700">
-            <div className="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center justify-between pt-2 border-t border-line">
+            <div className="flex items-center gap-1 text-xs text-fg-tertiary">
               <Eye size={12} />
               <span>{formatClickCount(clickCount)}</span>
             </div>

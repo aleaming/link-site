@@ -113,7 +113,7 @@ const SearchCommand = React.forwardRef<HTMLDivElement, SearchCommandProps>(
                     className="flex-1 bg-transparent border-none outline-none text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                   />
                   {loading && (
-                    <Loader2 size={16} className="text-cyan-500 animate-spin ml-2" />
+                    <Loader2 size={16} className="text-accent animate-spin ml-2" />
                   )}
                   <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded border">
                     ESC
@@ -135,7 +135,7 @@ const SearchCommand = React.forwardRef<HTMLDivElement, SearchCommandProps>(
                         <Command.Item
                           key={search}
                           onSelect={() => handleRecentSelect(search)}
-                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-cyan-500/20 data-[selected]:text-cyan-400 transition-colors"
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-accent/20 data-[selected]:text-accent-hover transition-colors"
                         >
                           <Clock size={16} className="text-neutral-400 dark:text-neutral-500" />
                           <span className="flex-1 truncate">{search}</span>
@@ -151,9 +151,9 @@ const SearchCommand = React.forwardRef<HTMLDivElement, SearchCommandProps>(
                         <Command.Item
                           key={suggestion}
                           onSelect={() => setQuery(suggestion)}
-                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-cyan-500/20 data-[selected]:text-cyan-400 transition-colors"
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-accent/20 data-[selected]:text-accent-hover transition-colors"
                         >
-                          <Zap size={16} className="text-lime-500" />
+                          <Zap size={16} className="text-accent-secondary" />
                           <span className="flex-1 truncate">{suggestion}</span>
                         </Command.Item>
                       ))}
@@ -167,7 +167,7 @@ const SearchCommand = React.forwardRef<HTMLDivElement, SearchCommandProps>(
                         <Command.Item
                           key={result.id}
                           onSelect={() => handleSelect(result)}
-                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-cyan-500/20 data-[selected]:text-cyan-400 transition-colors"
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-white/10 dark:hover:bg-neutral-800/50 data-[selected]:bg-accent/20 data-[selected]:text-accent-hover transition-colors"
                         >
                           {result.icon ? (
                             <img src={result.icon} alt="" className="w-4 h-4 rounded" />

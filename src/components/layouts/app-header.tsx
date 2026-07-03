@@ -12,7 +12,9 @@ import {
   Command
 } from 'lucide-react'
 import { GlowButton } from '@/components/ui/glow-button'
+import { ThemeSwitcher } from '@/components/ui/theme-switcher'
 import { cn } from '@/lib/utils'
+import { applyTheme, getStoredTheme, persistTheme } from '@/lib/themes'
 
 interface AppHeaderProps {
   onSearchOpen?: () => void
@@ -29,8 +31,9 @@ export function AppHeader({
 }: AppHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
-  const [darkMode, setDarkMode] = useState(true)
+  const [theme, setTheme] = useState(() => getStoredTheme())
   const [scrollProgress, setScrollProgress] = useState(0)
+  const darkMode = theme.mode === 'dark'
 
   // Handle scroll effects
   useEffect(() => {
@@ -47,13 +50,16 @@ export function AppHeader({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Apply theme — set both the design-system data attribute and the Tailwind
-  // `dark` class so CSS variables and `dark:` utilities stay in sync.
+  // Apply + persist the active palette/mode. Runs on mount (with whatever
+  // getStoredTheme() read from localStorage) and on every change.
   useEffect(() => {
-    const root = document.documentElement
-    root.setAttribute('data-theme', darkMode ? 'dark' : 'light')
-    root.classList.toggle('dark', darkMode)
-  }, [darkMode])
+    applyTheme(theme.palette, theme.mode)
+    persistTheme(theme)
+  }, [theme])
+
+  const toggleMode = () => {
+    setTheme((prev) => ({ ...prev, mode: prev.mode === 'dark' ? 'light' : 'dark' }))
+  }
 
   const handleSearchClick = () => {
     if (window.innerWidth < 768) {
@@ -67,7 +73,7 @@ export function AppHeader({
     <>
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-cyan-500 to-lime-500 origin-left"
+        className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-accent to-accent-secondary origin-left"
         style={{ scaleX: scrollProgress }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: scrollProgress }}
@@ -78,7 +84,7 @@ export function AppHeader({
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled 
-            ? "bg-cream/80 dark:bg-neutral-900/80 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-700/50 shadow-lg"
+            ? "bg-surface/80 backdrop-blur-xl border-b border-line/50 shadow-lg"
             : "bg-transparent",
           className
         )}
@@ -146,15 +152,15 @@ export function AppHeader({
                   >
                     <Zap 
                       size={32} 
-                      className="text-cyan-500 drop-shadow-lg" 
+                      className="text-accent drop-shadow-lg"
                     />
                   </motion.div>
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-500 to-lime-500 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
                     New AI Tools
                   </h1>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 -mt-1">
+                  <p className="text-xs text-fg-tertiary -mt-1">
                     Electric AI Directory
                   </p>
                 </div>
@@ -173,13 +179,13 @@ export function AppHeader({
                 >
                   <button
                     onClick={handleSearchClick}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group bg-cream/60 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(11,249,255,0.3)] backdrop-blur-sm"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group bg-surface/60 border border-line/50 hover:border-accent/50 hover:shadow-glow-accent-md backdrop-blur-sm"
                   >
-                    <Search size={16} className="text-neutral-400 group-hover:text-cyan-500 transition-colors" />
-                    <span className="flex-1 text-left text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">
+                    <Search size={16} className="text-fg-tertiary group-hover:text-accent transition-colors" />
+                    <span className="flex-1 text-left text-fg-tertiary group-hover:text-fg-secondary">
                       Search resources...
                     </span>
-                    <kbd className="flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-600">
+                    <kbd className="flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-elevated text-fg-secondary border border-line">
                       <Command size={10} />
                       K
                     </kbd>
@@ -198,17 +204,17 @@ export function AppHeader({
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="flex items-center gap-2 p-3 rounded-xl bg-cream dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-xl">
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-surface border border-line shadow-xl">
                     <Search size={16} className="text-neutral-400" />
                     <input
                       type="text"
                       placeholder="Search resources..."
-                      className="flex-1 bg-transparent border-none outline-none text-neutral-900 dark:text-white placeholder:text-neutral-400"
+                      className="flex-1 bg-transparent border-none outline-none text-fg placeholder:text-fg-tertiary"
                       autoFocus
                     />
                     <button
                       onClick={() => setSearchExpanded(false)}
-                      className="p-1 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                      className="p-1 rounded-md hover:bg-elevated"
                     >
                       <X size={16} />
                     </button>
@@ -233,7 +239,7 @@ export function AppHeader({
               <GlowButton
                 variant="ghost"
                 size="icon"
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleMode}
                 className="relative overflow-hidden"
               >
                 <AnimatePresence mode="wait">
@@ -245,7 +251,7 @@ export function AppHeader({
                       exit={{ rotate: 90, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Sun size={20} className="text-lime-500" />
+                      <Sun size={20} className="text-accent-secondary" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -255,11 +261,18 @@ export function AppHeader({
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Moon size={20} className="text-cyan-500" />
+                      <Moon size={20} className="text-accent" />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </GlowButton>
+
+              {/* Palette Theme Switcher */}
+              <ThemeSwitcher
+                paletteKey={theme.palette}
+                mode={theme.mode}
+                onPaletteChange={(palette) => setTheme((prev) => ({ ...prev, palette }))}
+              />
 
               {/* User Menu */}
               <GlowButton

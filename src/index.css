@@ -13,12 +13,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: #d4c5a0; /* natural sand — keep in sync with --bg-primary */
-    color: #262626;
-  }
-  html.dark body {
-    background-color: #1a1a1a;
-    color: #fafaf9;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
   }
 
   /* Display typeface for headings */

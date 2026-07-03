@@ -67,8 +67,8 @@ export function CategorySidebar({
         className={cn(
           'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group',
           isActive
-            ? 'bg-gradient-to-r from-cyan-500/20 to-lime-500/20 border border-cyan-500/50 text-cyan-400 shadow-[0_0_20px_rgba(11,249,255,0.3)]'
-            : 'hover:bg-neutral-100 dark:hover:bg-neutral-800/50 text-neutral-700 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400'
+            ? 'bg-gradient-to-r from-accent/20 to-accent-secondary/20 border border-accent/50 text-accent-hover shadow-glow-accent-md'
+            : 'hover:bg-elevated text-fg-secondary hover:text-accent'
         )}
         onClick={() => handleCategoryClick(category.slug)}
         whileHover={{ x: 4 }}
@@ -77,8 +77,8 @@ export function CategorySidebar({
         <div className={cn(
           'flex items-center justify-center w-8 h-8 rounded-lg transition-all',
           isActive
-            ? 'bg-cyan-500 text-white shadow-lg'
-            : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-cyan-500/20'
+            ? 'bg-accent text-white shadow-lg'
+            : 'bg-elevated group-hover:bg-accent/20'
         )}>
           <Icon size={16} />
         </div>
@@ -87,10 +87,10 @@ export function CategorySidebar({
           <div className="flex items-center gap-2">
             <span className="font-medium truncate">{category.name}</span>
             {category.featured && (
-              <Star size={12} className="text-lime-500 fill-current" />
+              <Star size={12} className="text-accent-secondary fill-current" />
             )}
           </div>
-          <div className="text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="text-xs text-fg-tertiary">
             {category.count.toLocaleString()} {category.count === 1 ? 'resource' : 'resources'}
           </div>
         </div>
@@ -103,14 +103,14 @@ export function CategorySidebar({
   }
 
   const sidebarContent = (
-    <div className="h-full flex flex-col bg-cream dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800">
+    <div className="h-full flex flex-col bg-surface border-r border-line">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
+      <div className="flex items-center justify-between p-4 border-b border-line">
         <div>
-          <h2 className="font-bold text-lg text-neutral-900 dark:text-white">
+          <h2 className="font-bold text-lg text-fg">
             Categories
           </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-fg-tertiary">
             Browse by category
           </p>
         </div>
@@ -133,30 +133,30 @@ export function CategorySidebar({
 
       {/* Filter Stats */}
       <motion.div
-        className="p-4 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/50"
+        className="p-4 border-t border-line bg-elevated/50"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h3 className="font-semibold text-sm text-neutral-700 dark:text-neutral-300 mb-3">
+        <h3 className="font-semibold text-sm text-fg-secondary mb-3">
           Filter Statistics
         </h3>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">Total Resources</span>
+            <span className="text-sm text-fg-secondary">Total Resources</span>
             <TagChip size="sm" variant="default">
               {stats.total.toLocaleString()}
             </TagChip>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">Currently Showing</span>
+            <span className="text-sm text-fg-secondary">Currently Showing</span>
             <TagChip size="sm" variant="active">
               {stats.showing.toLocaleString()}
             </TagChip>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">Featured</span>
-            <TagChip size="sm" className="bg-lime-500/20 text-lime-600 dark:text-lime-400">
+            <span className="text-sm text-fg-secondary">Featured</span>
+            <TagChip size="sm" className="bg-accent-secondary/20 text-accent-secondary">
               {stats.featured}
             </TagChip>
           </div>
