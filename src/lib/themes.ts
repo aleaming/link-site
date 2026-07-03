@@ -141,6 +141,81 @@ export const THEMES: Record<string, Palette> = {
       accentPrimary: '#60a5fa', accentSecondary: '#22d3ee', accentHover: '#93c5fd',
     },
   },
+  forest: {
+    name: 'Forest Canopy',
+    light: {
+      bgPrimary: '#dde6d0', bgSecondary: '#f5f9f0', bgElevated: '#f5f9f0',
+      textPrimary: '#1f2e14', textSecondary: '#435a2e', textTertiary: '#7a9160',
+      borderPrimary: '#c8d9b5', borderSecondary: '#b0c896',
+      accentPrimary: '#4d7c2c', accentSecondary: '#84a83f', accentHover: '#3d6322',
+    },
+    dark: {
+      bgPrimary: '#141f0e', bgSecondary: '#1f2e17', bgElevated: '#1f2e17',
+      textPrimary: '#e6f0dd', textSecondary: '#b0c89a', textTertiary: '#7a9160',
+      borderPrimary: '#2c4020', borderSecondary: '#385228',
+      accentPrimary: '#84a83f', accentSecondary: '#a3c65c', accentHover: '#6b9c34',
+    },
+  },
+  indigo: {
+    name: 'Midnight Indigo',
+    light: {
+      bgPrimary: '#dde0f5', bgSecondary: '#f5f6fd', bgElevated: '#f5f6fd',
+      textPrimary: '#1a1a3a', textSecondary: '#3f3f6b', textTertiary: '#7676a1',
+      borderPrimary: '#c5c9ec', borderSecondary: '#aab0e0',
+      accentPrimary: '#4f46e5', accentSecondary: '#6366f1', accentHover: '#4338ca',
+    },
+    dark: {
+      bgPrimary: '#12122a', bgSecondary: '#1e1e3f', bgElevated: '#1e1e3f',
+      textPrimary: '#e8e8fb', textSecondary: '#b0b0d6', textTertiary: '#7676a1',
+      borderPrimary: '#2e2e52', borderSecondary: '#383864',
+      accentPrimary: '#818cf8', accentSecondary: '#a5b4fc', accentHover: '#6366f1',
+    },
+  },
+  golden: {
+    name: 'Golden Hour',
+    light: {
+      bgPrimary: '#f7ecd0', bgSecondary: '#fffaf0', bgElevated: '#fffaf0',
+      textPrimary: '#3a2e0f', textSecondary: '#6b552a', textTertiary: '#a1895c',
+      borderPrimary: '#ecdca8', borderSecondary: '#ddc879',
+      accentPrimary: '#d4a017', accentSecondary: '#f4c430', accentHover: '#b8860b',
+    },
+    dark: {
+      bgPrimary: '#241d0e', bgSecondary: '#362c17', bgElevated: '#362c17',
+      textPrimary: '#fdf5e0', textSecondary: '#d6c08a', textTertiary: '#9c8c60',
+      borderPrimary: '#4a3d1f', borderSecondary: '#5e4e27',
+      accentPrimary: '#f4c430', accentSecondary: '#fde047', accentHover: '#eab308',
+    },
+  },
+  slate: {
+    name: 'Slate Graphite',
+    light: {
+      bgPrimary: '#e2e5e9', bgSecondary: '#f7f8fa', bgElevated: '#f7f8fa',
+      textPrimary: '#1e2530', textSecondary: '#4a5568', textTertiary: '#8792a2',
+      borderPrimary: '#d1d5db', borderSecondary: '#b8c0cc',
+      accentPrimary: '#64748b', accentSecondary: '#94a3b8', accentHover: '#475569',
+    },
+    dark: {
+      bgPrimary: '#171a1f', bgSecondary: '#262b33', bgElevated: '#262b33',
+      textPrimary: '#eef1f5', textSecondary: '#b0b8c4', textTertiary: '#7c8797',
+      borderPrimary: '#333a45', borderSecondary: '#414a58',
+      accentPrimary: '#94a3b8', accentSecondary: '#cbd5e1', accentHover: '#7c8fa6',
+    },
+  },
+  cherry: {
+    name: 'Cherry Blossom',
+    light: {
+      bgPrimary: '#fce4ec', bgSecondary: '#fff5f8', bgElevated: '#fff5f8',
+      textPrimary: '#3a1526', textSecondary: '#6b2f47', textTertiary: '#a06b82',
+      borderPrimary: '#f5d0dd', borderSecondary: '#eab8cc',
+      accentPrimary: '#e0447e', accentSecondary: '#f472b6', accentHover: '#c2185b',
+    },
+    dark: {
+      bgPrimary: '#26121b', bgSecondary: '#3a1d29', bgElevated: '#3a1d29',
+      textPrimary: '#fbe6ee', textSecondary: '#dba8bd', textTertiary: '#a67b91',
+      borderPrimary: '#4a2535', borderSecondary: '#5c2f42',
+      accentPrimary: '#f472b6', accentSecondary: '#fb7ba8', accentHover: '#f9a8d4',
+    },
+  },
 }
 
 export const PALETTE_KEYS = Object.keys(THEMES)

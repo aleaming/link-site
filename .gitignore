@@ -36,5 +36,8 @@ deno.lock
 # Claude Code session artifacts (handoffs, local settings)
 .claude/
 
+# Subagent-driven-development progress ledger (local scratch)
+.superpowers/
+
 # TypeScript incremental build cache (from tsc -b)
 *.tsbuildinfo
