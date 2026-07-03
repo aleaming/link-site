@@ -32,12 +32,33 @@ export default {
         // (design-system.css --bg-primary / --bg-elevated)
         sand: '#d4c5a0',
         cream: '#fbf8f0',
+        // Palette-reactive semantic tokens — resolve to CSS custom properties
+        // written at runtime by applyTheme() in src/lib/themes.ts.
+        bg: 'var(--bg-primary)',
+        surface: 'var(--bg-secondary)',
+        elevated: 'var(--bg-elevated)',
+        fg: 'var(--text-primary)',
+        'fg-secondary': 'var(--text-secondary)',
+        'fg-tertiary': 'var(--text-tertiary)',
+        line: 'var(--border-primary)',
+        'line-secondary': 'var(--border-secondary)',
+        accent: 'var(--accent-primary)',
+        'accent-secondary': 'var(--accent-secondary)',
+        'accent-hover': 'var(--accent-hover)',
       },
       boxShadow: {
-        'glow-cyan-sm': '0 0 4px rgb(11 249 255 / 0.3)',
-        'glow-cyan': '0 0 8px rgb(11 249 255 / 0.45), 0 0 20px rgb(11 249 255 / 0.2)',
-        'glow-cyan-lg': '0 0 12px rgb(11 249 255 / 0.5), 0 0 28px rgb(11 249 255 / 0.3), 0 0 48px rgb(11 249 255 / 0.12)',
-        'glow-lime': '0 0 8px rgb(211 255 26 / 0.45), 0 0 20px rgb(211 255 26 / 0.2)',
+        // rgb(from ...) is CSS relative color syntax (Chrome/Edge 119+,
+        // Safari 16.4+, Firefox 128+) — it re-derives r/g/b from whatever
+        // --accent-primary currently holds, so these stay in sync with the
+        // active palette with zero JS.
+        'glow-cyan-sm': '0 0 4px rgb(from var(--accent-primary) r g b / 0.3)',
+        'glow-cyan': '0 0 8px rgb(from var(--accent-primary) r g b / 0.45), 0 0 20px rgb(from var(--accent-primary) r g b / 0.2)',
+        'glow-cyan-lg': '0 0 12px rgb(from var(--accent-primary) r g b / 0.5), 0 0 28px rgb(from var(--accent-primary) r g b / 0.3), 0 0 48px rgb(from var(--accent-primary) r g b / 0.12)',
+        'glow-lime': '0 0 8px rgb(from var(--accent-secondary) r g b / 0.45), 0 0 20px rgb(from var(--accent-secondary) r g b / 0.2)',
+        'glow-accent-xs': '0 0 8px rgb(from var(--accent-primary) r g b / 0.3)',
+        'glow-accent-sm': '0 0 12px rgb(from var(--accent-primary) r g b / 0.4)',
+        'glow-accent-md': '0 0 20px rgb(from var(--accent-primary) r g b / 0.3)',
+        'glow-accent-lg': '0 0 24px rgb(from var(--accent-primary) r g b / 0.5)',
         // Layered, realistic elevation
         'elevated': '0 1px 2px rgb(0 0 0 / 0.18), 0 4px 8px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.18)',
       },
