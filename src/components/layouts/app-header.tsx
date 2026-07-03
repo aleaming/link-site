@@ -12,6 +12,7 @@ import {
   Command
 } from 'lucide-react'
 import { GlowButton } from '@/components/ui/glow-button'
+import { ThemeSwitcher } from '@/components/ui/theme-switcher'
 import { cn } from '@/lib/utils'
 import { applyTheme, getStoredTheme, persistTheme } from '@/lib/themes'
 
@@ -265,6 +266,13 @@ export function AppHeader({
                   )}
                 </AnimatePresence>
               </GlowButton>
+
+              {/* Palette Theme Switcher */}
+              <ThemeSwitcher
+                paletteKey={theme.palette}
+                mode={theme.mode}
+                onPaletteChange={(palette) => setTheme((prev) => ({ ...prev, palette }))}
+              />
 
               {/* User Menu */}
               <GlowButton
