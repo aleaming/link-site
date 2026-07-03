@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Search, 
-  Zap, 
-  Sun, 
-  Moon, 
-  Menu, 
-  X, 
-  User, 
-  Plus,
+import {
+  Search,
+  Zap,
+  Sun,
+  Moon,
+  Menu,
+  X,
   Command
 } from 'lucide-react'
 import { GlowButton } from '@/components/ui/glow-button'
@@ -274,23 +272,6 @@ export function AppHeader({
                 onPaletteChange={(palette) => setTheme((prev) => ({ ...prev, palette }))}
               />
 
-              {/* User Menu */}
-              <GlowButton
-                variant="ghost"
-                size="icon"
-                className="hidden sm:flex"
-              >
-                <User size={20} />
-              </GlowButton>
-
-              {/* Submit Link CTA */}
-              <GlowButton 
-                variant="secondary"
-                className="hidden sm:flex font-semibold"
-              >
-                <Plus size={16} />
-                Submit Tool
-              </GlowButton>
             </div>
           </div>
         </div>
