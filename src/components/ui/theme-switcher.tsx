@@ -55,7 +55,7 @@ export function ThemeSwitcher({ paletteKey, mode, onPaletteChange }: ThemeSwitch
           <>
             <div className="fixed inset-0 z-40" onClick={() => setPickerOpen(false)} />
             <motion.div
-              className="absolute right-0 top-full mt-2 z-50 w-56 rounded-xl border border-line bg-surface shadow-elevated p-2"
+              className="absolute right-0 top-full mt-2 z-50 w-56 max-h-80 overflow-y-auto rounded-xl border border-line bg-surface shadow-elevated p-2"
               initial={{ opacity: 0, y: -8, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.95 }}
