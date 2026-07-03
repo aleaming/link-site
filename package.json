@@ -11,7 +11,9 @@
     "dev:netlify": "netlify dev",
     "db:apply": "netlify database migrations apply",
     "links:add": "netlify dev:exec node scripts/upsert-links.mjs",
-    "links:add:dry": "node scripts/upsert-links.mjs --dry-run"
+    "links:add:dry": "node scripts/upsert-links.mjs --dry-run",
+    "notion:pull": "node --env-file=.env scripts/pull-notion-links.mjs",
+    "notion:sync": "node --env-file=.env scripts/sync-approved-from-notion.mjs"
   },
   "dependencies": {
     "@netlify/database": "^1.1.0",

@@ -27,6 +27,10 @@ dist-ssr
 # Working scratch file for the link-update routine (keep the .example version)
 data/links-inbox.json
 
+# Raw Notion dumps from the link-ingestion pipeline — mirrors the user's
+# personal Notion data, never commit
+data/notion-raw/
+
 # Local Netlify folder
 .netlify
 
