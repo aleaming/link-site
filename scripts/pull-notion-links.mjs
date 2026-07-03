@@ -28,7 +28,7 @@ function parseArgs(argv) {
 
 export async function pullHub(hub, { token, since, queryFn = queryDataSourceAll } = {}) {
   const filter = since
-    ? { property: 'Created time', created_time: { after: since } }
+    ? { timestamp: 'created_time', created_time: { after: since } }
     : undefined
   const pages = await queryFn(hub.dataSourceId, { token, filter })
   return pages.map(flattenNotionPage)
