@@ -78,7 +78,7 @@ export const THEMES: Record<string, Palette> = {
       bgPrimary: '#0b1f16', bgSecondary: '#142e21', bgElevated: '#142e21',
       textPrimary: '#e3f9ee', textSecondary: '#a3d6bb', textTertiary: '#6f9c82',
       borderPrimary: '#1f4531', borderSecondary: '#295a3f',
-      accentPrimary: '#34d399', accentSecondary: '#6ee7b7', accentHover: '#6ee7b7',
+      accentPrimary: '#34d399', accentSecondary: '#6ee7b7', accentHover: '#5eead4',
     },
   },
   coral: {
@@ -244,6 +244,9 @@ export function applyTheme(paletteKey: string, mode: ThemeMode) {
   root.dataset.palette = paletteKey
   root.setAttribute('data-theme', mode)
   root.classList.toggle('dark', mode === 'dark')
+
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]')
+  themeColorMeta?.setAttribute('content', tokens.bgPrimary)
 }
 
 export interface StoredTheme {
