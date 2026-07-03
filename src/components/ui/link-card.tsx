@@ -121,7 +121,7 @@ const LinkCard = React.forwardRef<HTMLDivElement, LinkCardProps>(
                 src={screenshot}
                 alt={`${title} screenshot`}
                 className={cn(
-                  "w-full h-full object-cover transition-all duration-500 group-hover:scale-110",
+                  "w-full h-full object-cover transition-opacity duration-500",
                   imageLoaded ? "opacity-100" : "opacity-0"
                 )}
                 onLoad={() => setImageLoaded(true)}
