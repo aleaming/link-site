@@ -133,13 +133,13 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
 
       </div>
 
-      <div className={cn('max-w-6xl mx-auto px-4 text-center', compact ? 'py-12' : 'py-20')}>
+      <div className={cn('max-w-6xl mx-auto px-4 text-center', compact ? 'py-12' : 'py-12')}>
         {/* Main Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8"
+          className="mb-6"
         >
           <h1 className="font-display font-bold tracking-tight leading-[1.05] mb-6 text-[clamp(2.75rem,7vw,5.5rem)]">
             <span className="block text-fg">
@@ -173,7 +173,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           aria-hidden={compact}
           className={cn(
             'grid transition-all duration-300 ease-smooth',
-            compact ? 'grid-rows-[0fr] opacity-0 pointer-events-none' : 'grid-rows-[1fr] opacity-100 mb-12'
+            compact ? 'grid-rows-[0fr] opacity-0 pointer-events-none' : 'grid-rows-[1fr] opacity-100 mb-8'
           )}
         >
         <div className={cn('min-h-0', compact ? 'overflow-hidden' : 'overflow-visible')}>
@@ -215,7 +215,7 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-16"
+          className="mb-10"
         >
           <h3 className="text-lg font-semibold text-fg-secondary mb-4">
             Popular Categories
@@ -259,13 +259,13 @@ export function HeroSection({ onSearchOpen, onTagClick, stats: statsProp, compac
             return (
               <motion.div
                 key={stat.label}
-                className="group relative rounded-2xl border border-line/70 bg-surface/70 backdrop-blur-sm px-6 py-7 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-accent-hover/50 hover:shadow-glow-cyan"
+                className="group relative rounded-2xl border border-line/70 bg-surface/70 backdrop-blur-sm px-4 py-4 text-center transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-accent-hover/50 hover:shadow-glow-cyan"
                 whileTap={{ scale: 0.98 }}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/20 to-accent-secondary/20 border border-accent/30 mb-4 transition-transform duration-300 group-hover:scale-110">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-accent/20 to-accent-secondary/20 border border-accent/30 mb-4 transition-transform duration-300 group-hover:scale-110">
                   <Icon size={22} className="text-accent-hover" />
                 </div>
-                <div className="font-display text-4xl font-bold text-fg mb-1 tabular-nums">
+                <div className="font-display text-2xl font-bold text-fg mb-1 tabular-nums">
                   {formatStatValue(animatedStats[index])}
                   <span className="text-accent-hover">+</span>
                 </div>
